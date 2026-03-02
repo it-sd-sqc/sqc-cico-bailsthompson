@@ -106,6 +106,7 @@ public class Main {
   static JLabel labelUser;
   static JLabel labelState;
   static JButton buttonAcknowledge;
+  static JButton buttonDone;
 
   // Timer variables //////////////////////////////////////////////////////////
   static java.util.Timer timer;
@@ -275,6 +276,13 @@ public class Main {
     panelStatus.setPreferredSize(new Dimension(640, 480));
     panelStatus.setMaximumSize(new Dimension(640, 480));
     panelStatus.setBackground(Color.blue);
+
+    //Done button processing
+    buttonDone = new JButton("DONE");
+    buttonDone.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    buttonDone.addActionListener(handler);
+    buttonDone.setForeground(Color.blue);
+    panelStatus.add(buttonDone);
 
     panelStatus.add(Box.createVerticalGlue());
     labelUser = new JLabel("Registrant", JLabel.LEADING);
