@@ -69,3 +69,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 
 ## Expected results
 * Should ignore non-numerical input.
+
+
+# Module 5:
+
+## Test Steps
+1. Build and run Cico
+2. Enter 00000000 into the field and click update
+3. Choose the done button
+
+## Expected results
+* Should skip the timeout and return user to the scan in screen allowing a new user to scan in.
