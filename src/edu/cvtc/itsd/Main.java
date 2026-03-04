@@ -41,7 +41,7 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null && stringToAdd.matches("\\d+")) {
+      if (fb.getDocument() != null && (stringToAdd == null || stringToAdd.isEmpty() || stringToAdd.matches("\\d+"))) {
         super.insertString(fb, offset, stringToAdd, attr);
       }
       else {
@@ -53,7 +53,7 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null && stringToAdd.matches("\\d+")) {
+      if (fb.getDocument() != null && ( stringToAdd == null || stringToAdd.isEmpty() || stringToAdd.matches("\\d+"))) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
       }
       else {
@@ -277,13 +277,6 @@ public class Main {
     panelStatus.setMaximumSize(new Dimension(640, 480));
     panelStatus.setBackground(Color.blue);
 
-    //Done button processing
-    buttonDone = new JButton("DONE");
-    buttonDone.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    buttonDone.addActionListener(handler);
-    buttonDone.setForeground(Color.blue);
-    panelStatus.add(buttonDone);
-
     panelStatus.add(Box.createVerticalGlue());
     labelUser = new JLabel("Registrant", JLabel.LEADING);
     labelUser.setFont(fontMain);
@@ -296,6 +289,13 @@ public class Main {
     labelState.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
+
+    //Done button processing
+    buttonDone = new JButton("DONE");
+    buttonDone.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    buttonDone.addActionListener(handler);
+    buttonDone.setForeground(Color.blue);
+    panelStatus.add(buttonDone);
 
     panelStatus.add(Box.createVerticalGlue());
 
