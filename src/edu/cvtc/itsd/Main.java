@@ -39,10 +39,20 @@ public class Main {
 
     @Override
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
-        throws BadLocationException
+            throws BadLocationException
     {
-      if (fb.getDocument() != null && (stringToAdd == null || stringToAdd.isEmpty() || stringToAdd.matches("\\d+"))) {
+      if (fb.getDocument() == null || stringToAdd == null) {
+        return;
+      }
+
+      int newLength = fb.getDocument().getLength() + stringToAdd.length();
+
+      if (stringToAdd.matches("\\d+") && newLength <= MAX_LENGTH) {
         super.insertString(fb, offset, stringToAdd, attr);
+
+        if (fb.getDocument().getLength() == MAX_LENGTH) {
+          Main.processCard();
+        }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -51,10 +61,26 @@ public class Main {
 
     @Override
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
-        throws BadLocationException
+            throws BadLocationException
     {
-      if (fb.getDocument() != null && ( stringToAdd == null || stringToAdd.isEmpty() || stringToAdd.matches("\\d+"))) {
+      if (fb.getDocument() == null || stringToAdd == null) {
+        return;
+      }
+
+      int newLength = fb.getDocument().getLength() - lengthToDelete + stringToAdd.length();
+
+      // Allow clearing / deleting text
+      if (stringToAdd.isEmpty()) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+        return;
+      }
+
+      if (stringToAdd.matches("\\d+") && newLength <= MAX_LENGTH) {
+        super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+
+        if (fb.getDocument().getLength() == MAX_LENGTH) {
+          Main.processCard();
+        }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -260,12 +286,6 @@ public class Main {
     fieldNumber.setBackground(Color.green);
     fieldNumber.setForeground(Color.magenta);
     panelMain.add(fieldNumber);
-
-    JButton updateButton = new JButton("Update");
-    updateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    updateButton.addActionListener(new Update());
-    updateButton.setForeground(Color.green);
-    panelMain.add(updateButton);
 
     panelMain.add(Box.createVerticalGlue());
 

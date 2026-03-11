@@ -80,3 +80,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 
 ## Expected results
 * Should skip the timeout and return user to the scan in screen allowing a new user to scan in.
+
+# Module 6: Ticket 601 - Auto submit after final digit
+
+## Test steps
+1. Build and run CiCo.
+2. Type 00000000 into the card field without pressing Enter.
+
+## Expected results
+* The program automatically submits after the eighth digit is entered.
+* The status panel appears without pressing Enter.
+* No Update button is displayed on the main panel.
